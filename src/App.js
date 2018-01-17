@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NodeContainer from './components/Node'
+import NodeContainer from './containers/NodeContainer'
 import AddNode from './containers/AddNode'
 
 export default class App extends Component {
