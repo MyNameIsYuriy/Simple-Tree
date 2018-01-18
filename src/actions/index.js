@@ -1,5 +1,6 @@
 export const ADD_NODE = 'ADD_NODE'
 export const EDIT_NODE = 'EDIT_NODE'
+export const CONFIRM_NODE_EDITION = 'CONFIRM_NODE_EDITION'
 export const REMOVE_NODE = 'REMOVE_NODE'
 export const TOGGLE_NODE = 'TOGGLE_NODE'
 export const RESET_TREE = 'RESET_TREE'
@@ -11,10 +12,16 @@ export function addNode(nodeText) {
 	}
 }
 
-export function editNode(nodeId) {
+export function editNode() {
 	return {
-		type: EDIT_NODE,
-		payload: nodeId
+		type: EDIT_NODE
+	}
+}
+
+export function confirmNodeEdition(newNodeText) {
+	return {
+		type: CONFIRM_NODE_EDITION,
+		payload: newNodeText
 	}
 }
 

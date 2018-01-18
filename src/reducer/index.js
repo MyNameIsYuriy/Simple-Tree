@@ -1,9 +1,8 @@
-import { ADD_NODE, EDIT_NODE, REMOVE_NODE, TOGGLE_NODE, RESET_TREE } from '../actions'
+import { ADD_NODE, EDIT_NODE, CONFIRM_NODE_EDITION, REMOVE_NODE, TOGGLE_NODE, RESET_TREE } from '../actions'
 
-var globalNodeId = 7
-
-const INITIAL_STATE = {
-    selectedNodeId: 4,
+export const INITIAL_STATE = {
+    selectedNodeId: 0,
+    nodeOnEdit: -1,
     data: [
         {
             name: 'node1',
@@ -44,6 +43,7 @@ const INITIAL_STATE = {
     ]
 }
 
+
 function traverseTreeForChildIds(data, startNodeId, callback) {
     var queue = [] 
     var currentNode = data.find(node => node.id === startNodeId)
@@ -60,10 +60,10 @@ function traverseTreeForChildIds(data, startNodeId, callback) {
     }
 };
 
-const nodeReducer = (state = INITIAL_STATE, action) => {
+function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case ADD_NODE: {
-            var childId = globalNodeId++
+            var childId = state.data.length + 1
             return {
                 ...state,
                 data: [
@@ -84,14 +84,33 @@ const nodeReducer = (state = INITIAL_STATE, action) => {
             }
         }
         case TOGGLE_NODE: {
-            var nodeToToggle = state.data.find(node => node.id === state.selectedNodeId)
-            if (!nodeToToggle || (nodeToToggle && nodeToToggle.removed)) {
+            var nodeToToggle = state.data.find(node => node.id === action.payload)
+            if (state.nodeOnEdit !== -1 || nodeToToggle.removed) {
                 return state
             }
 
             return {
                 ...state,
-                selectedNodeId: action.payload
+                selectedNodeId: state.selectedNodeId === action.payload ? 0 : action.payload
+            }
+        }
+        case EDIT_NODE: {
+            return {
+                ...state,
+                nodeOnEdit: state.selectedNodeId > 0 ? state.selectedNodeId : state.nodeOnEdit
+            }
+        }
+        case CONFIRM_NODE_EDITION: {
+            return {
+                ...state,
+                data: [ 
+                    ...state.data.map(node => node.id === state.nodeOnEdit 
+                                                ?
+                                                {...node, name: action.payload}
+                                                :
+                                                node)
+                ],
+                nodeOnEdit: -1
             }
         }
         case REMOVE_NODE: {
@@ -99,7 +118,8 @@ const nodeReducer = (state = INITIAL_STATE, action) => {
             var removedIds = []
             traverseTreeForChildIds(state.data, removedNodeId, (id) => { removedIds = removedIds.concat(id) })
             return {
-                selectedNodeId: 1,
+                ...state,
+                selectedNodeId: 0,
                 data: [ 
                     ...state.data.map(node => removedIds.includes(node.id) 
                                                 ?
@@ -109,8 +129,11 @@ const nodeReducer = (state = INITIAL_STATE, action) => {
                 ]
             }
         }
+        case RESET_TREE: {
+            return INITIAL_STATE
+        }
         default:
             return state
     }
 }
-export default nodeReducer
+export default reducer

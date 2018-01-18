@@ -1,9 +1,39 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { toggleNode } from '../actions'
+import { toggleNode, confirmNodeEdition } from '../actions'
 
 class Node extends Component {
 	
+	componentDidMount(){
+	   if (this.textInput) {
+	   	this.textInput.focus();
+	   } 
+	}
+
+	renderFormToEdit(name) {
+		let input 
+
+		return (
+			<form onSubmit={e => {
+			  e.preventDefault()
+			  if (!input.value.trim() && !input.placeholder) {
+			    return
+			  }
+			  var inputValue = input.value ? input.value : input.placeholder
+			  this.props.onEditOkClick(inputValue)
+			  input.value = ''
+			}}>
+			  <input placeholder={name} ref={node => {
+			    input = node
+			    this.textInput = input
+			  }} />
+			  <button type="submit">
+			    OK
+			  </button>
+			</form>
+		)
+	}
+
 	renderChilds(childIds) {
 		if (childIds) {
 			return (
@@ -19,11 +49,18 @@ class Node extends Component {
 	}
 
 	render() {
-		const { name, id, childIds } = this.props.nodeData
+		const { name, id, removed, childIds } = this.props.nodeData
 		
 		return (
+			this.props.nodeOnEdit === id ?
+			<span>
+				{ this.renderFormToEdit(name) }
+    			{ this.renderChilds(childIds) }
+    		</span>
+    		:
 			<li key={id} 
 				id={id === this.props.selectedNodeId ? 'liFont' : ''}
+				className={removed ? 'removed' : ''}
 				onClick={e => {
 					        e.stopPropagation()
 					        this.props.onNodeClick(id)
@@ -38,12 +75,14 @@ class Node extends Component {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		nodeData: state.data.find(node => node.id === ownProps.id),
-		selectedNodeId: state.selectedNodeId
+		selectedNodeId: state.selectedNodeId,
+		nodeOnEdit: state.nodeOnEdit
 	}
 }
 
 const mapDispatchToProps = {
-	onNodeClick: toggleNode
+	onNodeClick: toggleNode,
+	onEditOkClick: confirmNodeEdition
 }
 
 const NodeContainer = connect(

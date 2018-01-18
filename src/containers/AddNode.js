@@ -8,13 +8,14 @@ function AddNode({ dispatch }) {
   return (
     <form onSubmit={e => {
       e.preventDefault()
-      if (!input.value.trim()) {
+      if (!input.value.trim() && !input.placeholder) {
         return
       }
-      dispatch(addNode(input.value))
+      var inputValue = input.value ? input.value : input.placeholder
+      dispatch(addNode(inputValue))
       input.value = ''
     }}>
-      <input ref={node => {
+      <input placeholder='new node' ref={node => {
         input = node
       }} />
       <button type="submit">
