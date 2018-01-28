@@ -5,12 +5,12 @@ import { toggleNode, confirmNodeEdition } from '../actions'
 class Node extends Component {
 	
 	componentDidMount(){
-	   if (this.textInput) {
-	   	this.textInput.focus();
-	   } 
+		if (this.textInput) {
+			this.textInput.focus();
+		} 
 	}
 
-	renderFormToEdit(name) {
+	renderFormToEdit(name, id) {
 		let input 
 
 		return (
@@ -20,7 +20,7 @@ class Node extends Component {
 			    return
 			  }
 			  var inputValue = input.value ? input.value : input.placeholder
-			  this.props.onEditOkClick(inputValue)
+			  this.props.onEditOkClick(inputValue, id)
 			  input.value = ''
 			}}>
 			  <input placeholder={name} ref={node => {
@@ -35,7 +35,7 @@ class Node extends Component {
 	}
 
 	renderChilds(childIds) {
-		if (childIds) {
+		if (childIds.length > 0) {
 			return (
 				<ul>
 				{
@@ -49,18 +49,18 @@ class Node extends Component {
 	}
 
 	render() {
-		const { name, id, removed, childIds } = this.props.nodeData
+		const { name, id, isRemoved, childIds } = this.props.nodeData
 		
 		return (
-			this.props.nodeOnEdit === id ?
+			this.props.editNodeId === id ?
 			<span>
-				{ this.renderFormToEdit(name) }
+				{ this.renderFormToEdit(name, id) }
     			{ this.renderChilds(childIds) }
     		</span>
     		:
 			<li key={id} 
 				id={id === this.props.selectedNodeId ? 'liFont' : ''}
-				className={removed ? 'removed' : ''}
+				className={isRemoved ? 'isRemoved' : ''}
 				onClick={e => {
 					        e.stopPropagation()
 					        this.props.onNodeClick(id)
@@ -76,7 +76,7 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		nodeData: state.data.find(node => node.id === ownProps.id),
 		selectedNodeId: state.selectedNodeId,
-		nodeOnEdit: state.nodeOnEdit
+		editNodeId: state.editNodeId
 	}
 }
 

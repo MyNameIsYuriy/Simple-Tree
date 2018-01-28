@@ -1,16 +1,28 @@
 import React, { Component } from 'react'
 import NodeContainer from '../containers/NodeContainer'
-import AddNode from '../containers/AddNode'
-import DeleteNode from '../containers/DeleteNode'
+import AddNodeContainer from '../containers/AddNodeContainer'
+import EditNodeContainer from '../containers/EditNodeContainer'
+import DeleteNodeContainer from '../containers/DeleteNodeContainer'
+import ResetTreeContainer from '../containers/ResetTreeContainer'
 
 export default class App extends Component {
+    componentWillMount() {
+        this.props.getData()
+    }    
+
     render() {
         var allChildIds = []
         this.props.data.map(node => allChildIds = allChildIds.concat(node.childIds))
 
         return (
         	<div>
-				<ul id='nav'>
+                {
+                    this.props.error ?
+                    <div>Error: {this.props.error}</div>
+                    :
+                    ''
+                }
+        		<ul id='nav'>
 				{
 	        		this.props.data.map(node => (
                         allChildIds.includes(node.id) ?
@@ -20,11 +32,14 @@ export default class App extends Component {
                     ))
         		}	
         		</ul>
+                <p style={{color: 'grey'}}>Tip: click on a node twice to unfocus it.</p>
                 <table>
                     <tbody>
                     <tr>
-                        <td><AddNode /></td>
-                        <td><DeleteNode /></td>
+                        <td><AddNodeContainer /></td>
+                        <td><EditNodeContainer /></td>                        
+                        <td><DeleteNodeContainer /></td>
+                        <td><ResetTreeContainer /></td>
                     </tr>
                     </tbody>
                 </table>
@@ -32,4 +47,3 @@ export default class App extends Component {
         )
     }
 }
-

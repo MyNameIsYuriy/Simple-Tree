@@ -1,15 +1,13 @@
 {
-  "name": "react-hot-boilerplate",
+  "name": "Simple_Tree",
   "version": "1.0.0",
-  "description": "Boilerplate for ReactJS project with hot code reloading",
   "scripts": {
     "start": "node server.js",
     "test": "react-scripts test",
     "lint": "eslint src"
   },
   "repository": {
-    "type": "git",
-    "url": "https://github.com/gaearon/react-hot-boilerplate.git"
+    "type": "git"
   },
   "keywords": [
     "react",
@@ -22,12 +20,10 @@
     "edit",
     "webpack"
   ],
-  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
   },
-  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-eslint": "^4.1.3",
@@ -45,9 +41,12 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0"
   }
 }
