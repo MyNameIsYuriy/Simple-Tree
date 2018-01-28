@@ -1,2 +1,0 @@
-https://code.tutsplus.com/articles/data-structures-with-javascript-tree--cms-23393?ec_unit=translation-info-language
-https://github.com/alexcurtis/react-treebeard
