@@ -1,0 +1,11 @@
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\bin\Debug\netcoreapp2.0\TreeViewApi.deps.json
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\bin\Debug\netcoreapp2.0\TreeViewApi.runtimeconfig.json
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\bin\Debug\netcoreapp2.0\TreeViewApi.runtimeconfig.dev.json
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\bin\Debug\netcoreapp2.0\TreeViewApi.dll
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\bin\Debug\netcoreapp2.0\TreeViewApi.pdb
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\obj\Debug\netcoreapp2.0\TreeViewApi.csprojResolveAssemblyReference.cache
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\obj\Debug\netcoreapp2.0\TreeViewApi.csproj.CoreCompileInputs.cache
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\obj\Debug\netcoreapp2.0\TreeViewApi.AssemblyInfoInputs.cache
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\obj\Debug\netcoreapp2.0\TreeViewApi.AssemblyInfo.cs
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\obj\Debug\netcoreapp2.0\TreeViewApi.dll
+E:\Users\Юрий\source\repos\TreeViewApi\TreeViewApi\obj\Debug\netcoreapp2.0\TreeViewApi.pdb
